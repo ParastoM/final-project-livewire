@@ -5,6 +5,8 @@ const express = require("express");
 const morgan = require("morgan");
 const port = 8888;
 
+const { getArtistEvents, addUser } = require("./handlers");
+
 express()
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
@@ -19,6 +21,10 @@ express()
   .get("/test", (req, res) => {
     res.status(200).json({ itWorked: true });
   })
+
+  .get("/events/:artistName", getArtistEvents)
+
+  .post("/user", addUser)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
