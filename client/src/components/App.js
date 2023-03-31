@@ -13,6 +13,7 @@ import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import SingleEvent from "./SingleEvent";
 
 const App = () => {
   return (
@@ -24,6 +25,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/events" />
+            <Route path="/eventdetails" element={<SingleEvent />} />
           </Routes>
           <Footer />
         </Container>

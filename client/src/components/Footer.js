@@ -20,7 +20,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  height: 10vh;
+  height: 8vh;
   font-family: "VCR OSD Mono";
   position: absolute;
   bottom: 0;

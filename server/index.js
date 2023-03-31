@@ -5,7 +5,13 @@ const express = require("express");
 const morgan = require("morgan");
 const port = 8888;
 
-const { getArtistEvents, addUser } = require("./handlers");
+const {
+  getArtistEvents,
+  addUser,
+  getArtistInfo,
+  addUserEvents,
+  getUserEvents,
+} = require("./handlers");
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
@@ -23,8 +29,11 @@ express()
   })
 
   .get("/events/:artistName", getArtistEvents)
+  .get("/artists/:artistName", getArtistInfo)
 
   .post("/user", addUser)
+  .post("/user/events", addUserEvents)
+  .get("/user/events/:email", getUserEvents)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

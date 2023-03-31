@@ -25,6 +25,19 @@ const getArtistEvents = (req, res) => {
     .catch((err) => res.status(404).json({ status: 404, message: err }));
 };
 
+const getArtistInfo = (req, res) => {
+  return request(
+    `https://rest.bandsintown.com/artists/${req.params.artistName}?app_id=8ed898ae0c189455879a85790339fd58`
+  )
+    .then((response) => {
+      return JSON.parse(response);
+    })
+    .then((parsedResponse) => {
+      return res.status(200).json({ status: 200, data: parsedResponse });
+    })
+    .catch((err) => res.status(404).json({ status: 404, message: err }));
+};
+
 const addUser = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -49,4 +62,71 @@ const addUser = async (req, res) => {
     return res.status(400).json({ status: 400, message: "user not added" });
   }
 };
-module.exports = { getArtistEvents, addUser };
+const addUserEvents = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+
+    const { email, id, artistName } = req.body;
+
+    const existingUserEvents = await db
+      .collection("user_events")
+      .findOne({ email: email });
+
+    if (existingUserEvents) {
+      const updatedEvents = [...existingUserEvents.events, { id, artistName }];
+
+      await db
+        .collection("user_events")
+        .updateOne({ email: email }, { $set: { events: updatedEvents } });
+
+      return res
+        .status(200)
+        .json({ status: 200, message: "user events updated" });
+    } else {
+      await db
+        .collection("user_events")
+        .insertOne({ email, events: [{ id, artistName }] });
+      return res
+        .status(201)
+        .json({ status: 201, message: "user events added" });
+    }
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(400)
+      .json({ status: 400, message: "user events not added" });
+  }
+};
+const getUserEvents = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+
+    const { email } = req.params;
+
+    const existingUserEvents = await db
+      .collection("user_events")
+      .findOne({ email: email });
+
+    return res.status(200).json({ status: 200, data: existingUserEvents });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(404)
+      .json({ status: 404, message: "user events not found" });
+  }
+};
+module.exports = {
+  getArtistEvents,
+  addUser,
+  getArtistInfo,
+  addUserEvents,
+  getUserEvents,
+};

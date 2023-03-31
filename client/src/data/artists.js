@@ -1,3 +1,12 @@
+export const artistsOnTourArray = [
+  "protomartyr",
+  "shame",
+  "kinggizzardandthelizardwizard",
+  "westerman",
+  "feist",
+  "theeohsees",
+];
+
 const artistsArray = [
   "protomartyr",
   "shame",
@@ -8,6 +17,28 @@ const artistsArray = [
   "feist",
   "sylvanesso",
   "yvestumor",
+  "idles",
+  "blackmidi",
+  "squid",
+  "drycleaning",
+  "iceage",
+  "parquetcourts",
+  "carolinepolachek",
+  "girlpool",
+  "deerhunter",
+  "animalcollective",
+  "diiv",
+  "realestate",
+  "perfumegenius",
+  "battles",
+  "foxygen",
+  "tameimpala",
+  "unknownmortalorchestra",
+  "khruangbin",
+  "kinggizzardandthelizardwizard",
+  "mosessumney",
+  "sharonvanetten",
+  "molchatdoma",
 ];
 
 export default artistsArray;

@@ -22,19 +22,6 @@ const Typeahead = () => {
     setArtistName(value);
   };
 
-  // const handleSubmited = (e) => {
-  //   e.preventDefault();
-  //   fetch(`/events/${value}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setArtistName(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   return (
     <Container>
       {/* <form onSubmit={handleSubmited}> */}
@@ -83,3 +70,16 @@ const Input = styled.input`
   }
 `;
 export default Typeahead;
+
+// const handleSubmited = (e) => {
+//   e.preventDefault();
+//   fetch(`/events/${value}`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       console.log(data);
+//       setArtistName(data);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
