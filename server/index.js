@@ -11,6 +11,8 @@ const {
   getArtistInfo,
   addUserEvents,
   getUserEvents,
+  addComment,
+  deleteComment
 } = require("./handlers");
 
 express()
@@ -34,6 +36,8 @@ express()
   .post("/user", addUser)
   .post("/user/events", addUserEvents)
   .get("/user/events/:email", getUserEvents)
+  .post("/post-comment", addComment)
+  .delete("/delete-comment", deleteComment)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

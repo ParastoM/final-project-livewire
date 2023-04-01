@@ -13,6 +13,7 @@ const Homepage = () => {
   const [artist, setArtist] = useState(null);
   const [randEvents, setRandEvents] = useState([]);
   const [randArtists, setRandArtists] = useState([]);
+  const [artistInfo, setArtistInfo] = useState([]);
 
   const randomEventSelect = async (randomArtists) => {
     //using Promise.all because this will wait on result from all 3 before displaying
@@ -35,6 +36,16 @@ const Homepage = () => {
       })
     );
   };
+  useEffect(() => {
+    const fetchArtistInfo = async () => {
+      const artistInfo = await getRandomArtistInfo(
+        randEvents.map((event) => event.artist)
+      );
+      setArtistInfo(artistInfo);
+    };
+
+    fetchArtistInfo();
+  }, [randEvents]);
   useEffect(() => {
     const randomArtists = artistsOnTourArray
       .sort(() => Math.random() - Math.random())
@@ -67,19 +78,32 @@ const Homepage = () => {
 
   return (
     <Wrapper>
+      {user && isAuthenticated ? (
+        <Welcome>Hey {user.nickname}!</Welcome>
+      ) : (
+        <></>
+      )}
       <Type>
         <Typeahead />
       </Type>
+      <Text>Upcoming Events</Text>
       <SomeEvent>
+        {" "}
         {randEvents.length &&
           randEvents.map((concert, index) => {
+            const artist = artistInfo.find(
+              (info) => info.id === concert.artist
+            );
             return <RandomEvent key={index} event={concert} />;
           })}
       </SomeEvent>
+      <Text>Search by artist</Text>
       <SomeArtist>
-        {console.log(randArtists)}
         {randArtists.length &&
           randArtists.map((artist, index) => {
+            {
+              console.log(artist.image_url);
+            }
             return <RandomArtist key={index} artist={artist} />;
           })}
       </SomeArtist>
@@ -87,23 +111,44 @@ const Homepage = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Text = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Type = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  margin-top: 60px;
 `;
 
 const SomeEvent = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
 `;
 
 const SomeArtist = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  margin-bottom: 100px;
+`;
+
+const Welcome = styled.div`
+  margin-left: 40px;
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff00d4;
 `;
 
 export default Homepage;

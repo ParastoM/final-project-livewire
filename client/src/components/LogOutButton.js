@@ -13,6 +13,8 @@ const Button = styled.button`
   background: none;
   font-family: "VCR OSD Mono";
   color: white;
+  padding-right: 40px;
+  font-size: 20px;
 
   &:hover {
     color: #ff00d4;

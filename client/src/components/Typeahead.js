@@ -42,15 +42,17 @@ const Typeahead = () => {
         </div>
       )}
 
-      <Button onClick={() => artistEvents()}>Enter</Button>
+      <Button onClick={() => artistEvents()}>Wired</Button>
       {/* </form> */}
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-bottom: 60px;
+`;
 const Button = styled.button`
-  background-color: blue;
+  background-color: #ff00d4;
   color: white;
   border-radius: 3px;
   border: none;
@@ -58,15 +60,15 @@ const Button = styled.button`
   height: 30px;
 
   &:focus {
-    outline: solid red 3px;
+    outline: solid black 3px;
   }
 `;
 const Input = styled.input`
-  width: 300px;
+  width: 400px;
   margin-right: 20px;
 
   &:focus {
-    border: solid blue 3px;
+    border: solid #ff00d4 3px;
   }
 `;
 export default Typeahead;

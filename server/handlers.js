@@ -1,7 +1,7 @@
 // require the 'request-promise' module.
 const request = require("request-promise");
 const { v4: uuidv4 } = require("uuid");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
@@ -49,7 +49,7 @@ const addUser = async (req, res) => {
     const { email } = req.body;
     const existingUser = await db.collection("users").findOne({ email: email });
 
-    if (existingUser.email !== req.body.email) {
+    if (!existingUser || existingUser.email !== req.body.email) {
       await db.collection("users").insertOne(req.body);
       return res.status(201).json({ status: 201, message: "user added" });
     } else {
@@ -123,10 +123,83 @@ const getUserEvents = async (req, res) => {
       .json({ status: 404, message: "user events not found" });
   }
 };
+
+const addComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+
+    const { email, eventId, comment } = req.body;
+
+    const existingUser = await db
+      .collection("user_events")
+      .findOne({ email: email }); //if user exists, insert the comment
+
+    if (existingUser) {
+      const commentRes = await db
+        .collection("event_comments")
+        .insertOne({ email, eventId, comment });
+      console.log(commentRes); // {acknowledged: true, insertId: id}
+      return res.status(201).json({
+        status: 201,
+        message: "comment added",
+        commentId: commentRes.insertedId,
+      });
+    } else {
+      return res
+        .status(400)
+        .json({ status: 400, message: "user does not exist" });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ status: 404, message: "comment not posted" });
+  }
+};
+
+const deleteComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+
+    const { email, commentId } = req.body;
+
+    const existingUser = await db
+      .collection("user_events")
+      .findOne({ email: email });
+
+    if (existingUser) {
+      const deleteRes = await db
+        .collection("event_comments")
+        .deleteOne({ email, _id: new ObjectId(commentId) });
+
+      return res.status(201).json({
+        status: 201,
+        message: "comment deleted",
+      });
+    } else {
+      return res
+        .status(400)
+        .json({ status: 400, message: "user does not exist" });
+    }
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(404)
+      .json({ status: 404, message: "unable to delete comment" });
+  }
+};
 module.exports = {
   getArtistEvents,
   addUser,
   getArtistInfo,
   addUserEvents,
   getUserEvents,
+  addComment,
+  deleteComment,
 };

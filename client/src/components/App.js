@@ -14,6 +14,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import SingleEvent from "./SingleEvent";
+import ArtistPage from "./ArtistPage";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/events" />
             <Route path="/eventdetails" element={<SingleEvent />} />
+            <Route path="/artistdetails" element={<ArtistPage />} />
           </Routes>
           <Footer />
         </Container>
@@ -38,6 +40,6 @@ const App = () => {
 export default App;
 
 const Container = styled.div`
-  min-height: 100vh;
   position: relative;
+  min-height: 100vh;
 `;

@@ -30,9 +30,7 @@ const Header = () => {
       <Logo to="/">LiveWire</Logo>
       <Buttons>
         {user && isAuthenticated ? (
-          <ProfileButton to="/profile">
-            {user.given_name}'s Profile
-          </ProfileButton>
+          <ProfileButton to="/profile">{user.nickname}'s Profile</ProfileButton>
         ) : (
           ""
         )}{" "}
@@ -64,6 +62,7 @@ const ProfileButton = styled(Link)`
   background: none;
   font-family: "VCR OSD Mono";
   color: white;
+  font-size: 20px;
 
   &:hover {
     color: #ff00d4;
@@ -72,7 +71,7 @@ const ProfileButton = styled(Link)`
 
 const Logo = styled(Link)`
   font-size: 50px;
-  padding-left: 20px;
+  padding-left: 40px;
   color: white;
   &:hover {
     color: #ff00d4;
