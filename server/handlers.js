@@ -26,6 +26,7 @@ const getArtistEvents = (req, res) => {
 };
 
 const getArtistInfo = (req, res) => {
+  console.log(req.params.artistName);
   return request(
     `https://rest.bandsintown.com/artists/${req.params.artistName}?app_id=8ed898ae0c189455879a85790339fd58`
   )
@@ -33,6 +34,7 @@ const getArtistInfo = (req, res) => {
       return JSON.parse(response);
     })
     .then((parsedResponse) => {
+      console.log(parsedResponse);
       return res.status(200).json({ status: 200, data: parsedResponse });
     })
     .catch((err) => res.status(404).json({ status: 404, message: err }));
@@ -159,6 +161,44 @@ const addComment = async (req, res) => {
   }
 };
 
+const editComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+
+    const { email, commentId, comment } = req.body;
+
+    const existingComment = await db
+      .collection("event_comments")
+      .findOne({ _id: ObjectId(commentId), email: email }); // find the comment to edit
+
+    if (existingComment) {
+      const commentRes = await db
+        .collection("event_comments")
+        .updateOne(
+          { _id: ObjectId(commentId) },
+          { $set: { comment: comment } }
+        );
+      console.log(commentRes); // {acknowledged: true, modifiedCount: 1}
+      return res.status(200).json({
+        status: 200,
+        message: "comment edited",
+        commentId: commentId,
+      });
+    } else {
+      return res
+        .status(404)
+        .json({ status: 400, message: "comment not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ status: 500, message: "comment not edited" });
+  }
+};
+
 const deleteComment = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -201,5 +241,6 @@ module.exports = {
   addUserEvents,
   getUserEvents,
   addComment,
+  editComment,
   deleteComment,
 };

@@ -28,7 +28,7 @@
   { "name": "Adrianne Lenker" },
   { "name": "Julia Jacklin" },
   { "name": "Weyes Blood" },
-  { "name": "Mount Eerie" },
+ 
   { "name": "Japanese Breakfast" },
   { "name": "Frankie Cosmos" },
   { "name": "Jay Som" },
@@ -58,11 +58,7 @@
   { "name": "Sleater-Kinney" },
   { "name": "Bikini Kill" },
   { "name": "Liz Phair" },
-  { "name": "Elliott Smith" },
-  { "name": "Jeff Buckley" },
-  { "name": "Nick Drake" },
   { "name": "Neil Young" },
-  { "name": "Bob Dylan" },
-  { "name": "Leonard Cohen" },
-  { "name": "Joni Mitchell" }
+  { "name": "Bob Dylan" }
+
 ]

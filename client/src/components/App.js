@@ -41,5 +41,6 @@ export default App;
 
 const Container = styled.div`
   position: relative;
+  padding-bottom: 10vh;
   min-height: 100vh;
 `;

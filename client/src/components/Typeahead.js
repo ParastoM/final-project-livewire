@@ -68,7 +68,7 @@ const Input = styled.input`
   margin-right: 20px;
 
   &:focus {
-    border: solid #ff00d4 3px;
+    border: solid blue 3px;
   }
 `;
 export default Typeahead;

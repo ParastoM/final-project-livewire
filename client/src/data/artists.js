@@ -5,6 +5,11 @@ export const artistsOnTourArray = [
   "westerman",
   "feist",
   "theeohsees",
+  "yvestumor",
+  "kurtvile",
+  "angelolsen",
+  "squid",
+  "idles",
 ];
 
 const artistsArray = [
@@ -12,15 +17,13 @@ const artistsArray = [
   "shame",
   "theeohsees",
   "nationoflanguage",
-  "agaragar",
   "thelemontwigs",
   "feist",
   "sylvanesso",
   "yvestumor",
   "idles",
-  "blackmidi",
+
   "squid",
-  "drycleaning",
   "iceage",
   "parquetcourts",
   "carolinepolachek",

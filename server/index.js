@@ -12,7 +12,8 @@ const {
   addUserEvents,
   getUserEvents,
   addComment,
-  deleteComment
+  editComment,
+  deleteComment,
 } = require("./handlers");
 
 express()
@@ -37,6 +38,7 @@ express()
   .post("/user/events", addUserEvents)
   .get("/user/events/:email", getUserEvents)
   .post("/post-comment", addComment)
+  .patch("/edit-comment", editComment)
   .delete("/delete-comment", deleteComment)
 
   // this is our catch all endpoint.

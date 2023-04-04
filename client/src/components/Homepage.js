@@ -21,7 +21,7 @@ const Homepage = () => {
       randomArtists.map(async (musician) => {
         const res = await fetch(`/events/${musician}`);
         const data = await res.json();
-        console.log(data);
+
         return data;
       })
     );
@@ -36,29 +36,25 @@ const Homepage = () => {
       })
     );
   };
-  useEffect(() => {
-    const fetchArtistInfo = async () => {
-      const artistInfo = await getRandomArtistInfo(
-        randEvents.map((event) => event.artist)
-      );
-      setArtistInfo(artistInfo);
-    };
 
-    fetchArtistInfo();
-  }, [randEvents]);
   useEffect(() => {
     const randomArtists = artistsOnTourArray
       .sort(() => Math.random() - Math.random())
       .slice(0, 3);
 
-    randomEventSelect(randomArtists).then((data) => {
-      const randomEvents = data.map((element) => {
-        const allEvents = element.data;
-        const randIndex = Math.floor(Math.random() * allEvents.length);
-        return allEvents[randIndex];
+    //fetch randomEvents
+    const fetchRandomEvents = async () => {
+      await randomEventSelect(randomArtists).then((data) => {
+        const randomEvents = data.map((element) => {
+          const allEvents = element.data;
+          const randIndex = Math.floor(Math.random() * allEvents.length);
+          return allEvents[randIndex];
+        });
+        setRandEvents(randomEvents);
       });
-      setRandEvents(randomEvents);
-    });
+    };
+
+    fetchRandomEvents();
   }, []);
 
   useEffect(() => {
@@ -69,7 +65,6 @@ const Homepage = () => {
     getRandomArtistInfo(randomArtists).then((data) => {
       const randomArtistsObjects = data.map((element) => {
         const allArtists = element.data;
-        console.log(allArtists);
         return allArtists;
       });
       setRandArtists(randomArtistsObjects);
@@ -78,7 +73,7 @@ const Homepage = () => {
 
   return (
     <Wrapper>
-      {user && isAuthenticated ? (
+      {user && isAuthenticated && randEvents && randArtists ? (
         <Welcome>Hey {user.nickname}!</Welcome>
       ) : (
         <></>
@@ -88,12 +83,8 @@ const Homepage = () => {
       </Type>
       <Text>Upcoming Events</Text>
       <SomeEvent>
-        {" "}
         {randEvents.length &&
           randEvents.map((concert, index) => {
-            const artist = artistInfo.find(
-              (info) => info.id === concert.artist
-            );
             return <RandomEvent key={index} event={concert} />;
           })}
       </SomeEvent>
@@ -101,9 +92,6 @@ const Homepage = () => {
       <SomeArtist>
         {randArtists.length &&
           randArtists.map((artist, index) => {
-            {
-              console.log(artist.image_url);
-            }
             return <RandomArtist key={index} artist={artist} />;
           })}
       </SomeArtist>
