@@ -26,6 +26,7 @@ const Homepage = () => {
       })
     );
   };
+
   const getRandomArtistInfo = async (randomArtists) => {
     return await Promise.all(
       randomArtists.map(async (musician) => {

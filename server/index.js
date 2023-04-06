@@ -14,6 +14,8 @@ const {
   addComment,
   editComment,
   deleteComment,
+  getArtistList,
+  getComment,
 } = require("./handlers");
 
 express()
@@ -38,8 +40,11 @@ express()
   .post("/user/events", addUserEvents)
   .get("/user/events/:email", getUserEvents)
   .post("/post-comment", addComment)
-  .patch("/edit-comment", editComment)
+  .get("/get-comment/:eventId", getComment)
+  .post("/edit-comment", editComment)
   .delete("/delete-comment", deleteComment)
+
+  .get("/artistList", getArtistList)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

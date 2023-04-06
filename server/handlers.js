@@ -9,7 +9,23 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-// Returns the current position of the ISS
+
+const getArtistList = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+    const artists = await db.collection("artists").find({}).toArray();
+
+    return res.status(200).json({ status: 200, data: artists });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ status: 404, message: "artists not found" });
+  }
+};
+
 const getArtistEvents = (req, res) => {
   return request(
     `https://rest.bandsintown.com/artists/${req.params.artistName}/events?app_id=8ed898ae0c189455879a85790339fd58`
@@ -160,6 +176,26 @@ const addComment = async (req, res) => {
     return res.status(404).json({ status: 404, message: "comment not posted" });
   }
 };
+const getComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    // connect to the client
+    const { eventId } = req.params;
+    await client.connect();
+    const db = client.db("final_project");
+    console.log("connected!");
+
+    const comments = await db.collection("event_comments").find().toArray();
+
+    return res.status(200).json({
+      status: 200,
+      data: comments.filter((comment) => comment.eventId === eventId),
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ status: 404, message: "comment not posted" });
+  }
+};
 
 const editComment = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
@@ -173,13 +209,13 @@ const editComment = async (req, res) => {
 
     const existingComment = await db
       .collection("event_comments")
-      .findOne({ _id: ObjectId(commentId), email: email }); // find the comment to edit
+      .findOne({ _id: new ObjectId(commentId), email: email }); // find the comment to edit
 
     if (existingComment) {
       const commentRes = await db
         .collection("event_comments")
         .updateOne(
-          { _id: ObjectId(commentId) },
+          { _id: new ObjectId(commentId) },
           { $set: { comment: comment } }
         );
       console.log(commentRes); // {acknowledged: true, modifiedCount: 1}
@@ -243,4 +279,6 @@ module.exports = {
   addComment,
   editComment,
   deleteComment,
+  getArtistList,
+  getComment,
 };

@@ -1,17 +1,25 @@
+//Started this component with the intent of it being a typeahead with suggestions being fetched from my collection in MongoDB.
+//It has a search only functionality for now. Something to work on :-)
+// The code is commented out at the bottom of the component.
+
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Typeahead = () => {
   const [value, setValue] = useState("");
   const [artistName, setArtistName] = useState("");
 
+  const navigate = useNavigate();
+
   const artistEvents = () => {
-    console.log(value);
-    fetch(`/events/${value}`)
+    fetch(`/artists/${value}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setArtistName(data);
+        console.log("data", data);
+        navigate("/artistdetails", {
+          state: { artist: data.data },
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -24,7 +32,6 @@ const Typeahead = () => {
 
   return (
     <Container>
-      {/* <form onSubmit={handleSubmited}> */}
       <Input
         type="text"
         placeholder="Search for an artist to see their upcoming events"
@@ -36,6 +43,7 @@ const Typeahead = () => {
           }
         }}
       />
+
       {artistName && (
         <div>
           <div>{artistName.name}</div>
@@ -43,7 +51,6 @@ const Typeahead = () => {
       )}
 
       <Button onClick={() => artistEvents()}>Wired</Button>
-      {/* </form> */}
     </Container>
   );
 };
@@ -73,15 +80,35 @@ const Input = styled.input`
 `;
 export default Typeahead;
 
-// const handleSubmited = (e) => {
-//   e.preventDefault();
-//   fetch(`/events/${value}`)
-//     .then((res) => res.json())
+// some code for typeahead
+
+// const [artistList, setArtistList] = useState([]);
+
+// useEffect(() => {
+//   fetch(`/artistList`)
+//     .then((response) => response.json())
 //     .then((data) => {
-//       console.log(data);
-//       setArtistName(data);
+//       const stringArray = data.data.map((obj) => obj.name);
+//       console.log(stringArray);
+//       setArtistList(stringArray);
 //     })
 //     .catch((error) => {
-//       console.log(error);
+//       console.error(error);
 //     });
-// };
+// }, []);
+// console.log(artistList);
+// const matchedSuggestions =
+//   value.length >= 2
+//     ? artistList.filter((artist) => {
+//         return artist.toLowerCase().includes(value.toLowerCase());
+//       })
+//     : [];
+// console.log("matchedSuggestions", matchedSuggestions);
+
+{
+  /* <ul>
+        {matchedSuggestions.map((artist) => (
+          <li key={artist}>{artist.toLowerCase()}</li>
+        ))}
+      </ul> */
+}

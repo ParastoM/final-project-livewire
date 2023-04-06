@@ -12,9 +12,11 @@ const ArtistPage = ({ artistName }) => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const { artist } = state;
+  console.log("my state", state);
+
+  const { artist, event } = state;
   const backgroundImageUrl = artist.image_url;
-  console.log(artist);
+  console.log(event);
 
   useEffect(() => {
     fetch(`/events/${artist.name}`)
@@ -30,16 +32,32 @@ const ArtistPage = ({ artistName }) => {
     return <div>Go back to homepage</div>;
   }
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
-    navigate("eventdetails", { state: { artist: artist } });
+  if (!artist.name) {
+    return <div>Artist not found</div>;
+  }
+
+  const handleClick = (artistName, eventId) => {
+    fetch(`/events/${artistName}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          const eventInfo = data.data.find((event) => event.id === eventId);
+          navigate("/eventdetails", {
+            state: { event: eventInfo, artist: artist },
+          });
+        }
+      });
   };
 
   return (
     <Container>
       <NameContainer>
         <Name>{artist.name}</Name>
-        <Number>{artist.upcoming_event_count} upcoming shows</Number>
+        {artist.upcoming_event_count === 0 ? (
+          <Number>No upcoming tour dates for now</Number>
+        ) : (
+          <Number>{artist.upcoming_event_count} upcoming shows</Number>
+        )}
       </NameContainer>
       <SomeDiv>
         <ArtistImage src={backgroundImageUrl} />
@@ -56,7 +74,13 @@ const ArtistPage = ({ artistName }) => {
                       .utc(event.datetime)
                       .format("MMM Do, YYYY · h:mm A  ")}{" "}
                   </P>
-                  <Button onClick={(ev) => handleClick(ev)}>View event</Button>
+                  <Button
+                    onClick={() => {
+                      handleClick(event.lineup[0], event.id);
+                    }}
+                  >
+                    View event
+                  </Button>
                 </TourDate>
               );
             })}
@@ -77,13 +101,11 @@ const ArtistImage = styled.img`
   order: 1;
   background-size: cover;
   background-image: url(${(props) => props.backgroundImageUrl});
-  margin-right: 100px;
 `;
 const SomeDiv = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  margin-left: 20px;
-  margin-right: 60px;
+  margin-left: 60px;
 `;
 
 const Name = styled.div`
@@ -101,9 +123,7 @@ const NameContainer = styled.div`
   flex-direction: column;
 `;
 
-const Container = styled.div`
-  margin: 20px;
-`;
+const Container = styled.div``;
 
 const TourList = styled.div`
   display: grid;
@@ -121,6 +141,7 @@ const TourDate = styled.div`
   padding-left: 10px;
   padding-right: 10px;
   height: 150px;
+  width: 300px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -128,6 +149,7 @@ const TourDate = styled.div`
   text-align: center;
   align-items: center;
   margin-right: 50px;
+  margin-left: 50px;
 `;
 
 const ArtistInfo = styled.div`

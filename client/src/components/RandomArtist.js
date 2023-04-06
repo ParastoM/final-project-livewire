@@ -6,14 +6,13 @@ const RandomArtist = ({ artist }) => {
   const backgroundImageUrl = artist.image_url;
   const navigate = useNavigate();
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
+  const handleClick = () => {
     navigate("/artistdetails", { state: { artist: artist } });
   };
 
   return (
     <Container>
-      <Button onClick={(ev) => handleClick(ev)}>
+      <Button onClick={handleClick}>
         <CardWrapper backgroundImageUrl={backgroundImageUrl}>
           <Text>
             <h2>{artist.name}</h2>
