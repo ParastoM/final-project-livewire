@@ -174,7 +174,9 @@ const SingleEvent = (props) => {
 
             <Button
               type="submit"
-              disabled={characterCount >= 280 || characterCount < 0}
+              disabled={
+                characterCount >= 280 || characterCount < 0 || !isAuthenticated
+              }
             >
               LiveWire
             </Button>
