@@ -8,17 +8,17 @@ Livewire can be used by all to search for any artist's tour dates, by way of Ban
 To start the application, make way to the server terminal and yarn start. Repeat in the client terminal.
 
 The Homepage consists of a search bar, a log in button, 3 randomely generated events, and 3 randomely generated artists (on click, you will be able to see all their tour dates).
-<img src="https://imgur.com/MXfQEbF"/>
+![Homepage](https://i.imgur.com/MXfQEbF.png)
 
 The Event page consists of a single event with a "I'll be there" button for logged in users - once clicked, the event is saved on the user's profile as a reminder of the upcoming show. 
-![Homepage](https://i.imgur.com/MXfQEbF.hpng)
+![EventPage](https://i.imgur.com/K7Ng6bh.png)
+
 
 The Artist page consists of all the upcoming tour dates for a given artist. Any clicked event will bring a user to the Event page of that given concert listing. 
-<img src="https://imgur.com/NmHAuzh"/>
+![ArtistPage](https://i.imgur.com/2pI8Dx0.png)
 
 The Profile page, as explained earlier, displays a list of all the events a logged in user has said they will be attending by click of a button. In terms of design, I would love to make the individual listings look like ticket stubs (just to further the nostalgia factor). 
-<img src="https://imgur.com/UKSFTUO"/>
-
+![ProfilePage](https://i.imgur.com/bokx0V2.png)
 
 
 Truly, this is the bare bones of it. There is so much space for growth and development in this project. From making visual designs to adding more technical aspects (like following / friending users), the possibilities are many and the potential for learning is exponential. 
