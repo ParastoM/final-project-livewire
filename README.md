@@ -11,7 +11,7 @@ The Homepage consists of a search bar, a log in button, 3 randomely generated ev
 <img src="https://imgur.com/MXfQEbF"/>
 
 The Event page consists of a single event with a "I'll be there" button for logged in users - once clicked, the event is saved on the user's profile as a reminder of the upcoming show. 
-![Homepage](https://imgur.com/kxI6nY2)
+![Homepage](https://i.imgur.com/MXfQEbF.png)
 
 The Artist page consists of all the upcoming tour dates for a given artist. Any clicked event will bring a user to the Event page of that given concert listing. 
 <img src="https://imgur.com/NmHAuzh"/>
