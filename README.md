@@ -8,7 +8,7 @@ Livewire can be used by all to search for any artist's tour dates, by way of Ban
 To start the application, make way to the server terminal and yarn start. Repeat in the client terminal.
 
 The Homepage consists of a search bar, a log in button, 3 randomely generated events, and 3 randomely generated artists (on click, you will be able to see all their tour dates).
-<img src="https://imgur.com/7W0Ej0s"/>
+<img src="https://imgur.com/MXfQEbF"/>
 
 The Event page consists of a single event with a "I'll be there" button for logged in users - once clicked, the event is saved on the user's profile as a reminder of the upcoming show. 
 <img src="https://imgur.com/kxI6nY2"/>
