@@ -1,4 +1,5 @@
 # final-project-livewire
+<h1>LiveWire<h1>
 Final project by Parasto Moragheb for cb-wd-23a
 
 Livewire is an application I worked on as my final project for Concordia's Full Stack Web Development Bootcamp. The idea was to create a space that serves as a search tool for concerts, as a personal event keeper / organizer, and as a small community where users can interact with one another. It was an opportunity for me to go back in time to the year 2005 - being a teen, having a MySpace account, downloading songs (and viruses) from LimeWire onto the family computer, keeping all my concert ticket stubs, and having music be the entirety of my life.
