@@ -188,7 +188,7 @@ const SingleEvent = (props) => {
           return (
             <>
               <OldCommentDiv>
-                <p>Posted by {item.email}</p>
+                <Author>Posted by {item.email}</Author>
                 <Comment>{item.comment}</Comment>
 
                 {isAuthenticated && item.email === user.email && (
@@ -215,6 +215,7 @@ const FormEdit = styled.form`
 `;
 const Comment = styled.p`
   word-wrap: break-word;
+  margin-top: 10px;
 `;
 
 const EditDeleteButtons = styled.div`
@@ -333,6 +334,11 @@ const StyledLimitNumber = styled.span`
       : props.characterCount <= 55
       ? "yellow"
       : "black"};
+`;
+
+const Author = styled.p`
+  font-family: "VCR OSD Mono";
+  border-bottom: 1px solid #ff00d4;
 `;
 
 export default SingleEvent;

@@ -105,7 +105,7 @@ const ArtistImage = styled.img`
 const SomeDiv = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  margin-left: 60px;
+  justify-content: center;
 `;
 
 const Name = styled.div`
@@ -132,11 +132,14 @@ const TourList = styled.div`
   row-gap: 10px;
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+  margin-top: 3px;
+`;
 
 const TourDate = styled.div`
   border: 1px solid;
-  color: black;
+  color: white;
+  background: #ff00d4;
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;

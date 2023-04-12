@@ -103,6 +103,8 @@ const Container = styled.div`
 `;
 const Text = styled.div`
   margin-left: 20px;
+  font-family: "VCR OSD Mono";
+  font-weight: bold;
 `;
 
 const SearchLink = styled(Link)`
@@ -114,7 +116,7 @@ const SearchLink = styled(Link)`
 `;
 
 const EventContainer = styled.div`
-  border: solid 1px black;
+  border: solid 2px #ff00d4;
   display: flex;
   flex-direction: column;
   align-items: center;
