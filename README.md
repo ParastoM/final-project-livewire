@@ -11,11 +11,13 @@ The Homepage consists of a search bar, a log in button, 3 randomely generated ev
 <img src="https://imgur.com/7W0Ej0s"/>
 
 The Event page consists of a single event with a "I'll be there" button for logged in users - once clicked, the event is saved on the user's profile as a reminder of the upcoming show. 
+<img src="https://imgur.com/kxI6nY2"/>
 
 The Artist page consists of all the upcoming tour dates for a given artist. Any clicked event will bring a user to the Event page of that given concert listing. 
+<img src="https://imgur.com/NmHAuzh"/>
 
 The Profile page, as explained earlier, displays a list of all the events a logged in user has said they will be attending by click of a button. In terms of design, I would love to make the individual listings look like ticket stubs (just to further the nostalgia factor). 
-
+<img src="https://imgur.com/UKSFTUO"/>
 
 
 
