@@ -1,4 +1,4 @@
-# final-project-livewire
+
 <h1>Final Project for Concordia Bootcamp: LiveWire</h1>
 Final project by Parasto Moragheb for cb-wd-23a
 
