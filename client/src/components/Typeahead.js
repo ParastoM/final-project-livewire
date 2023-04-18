@@ -73,6 +73,7 @@ const Button = styled.button`
 const Input = styled.input`
   width: 400px;
   margin-right: 20px;
+  height: 30px;
 
   &:focus {
     border: solid blue 3px;

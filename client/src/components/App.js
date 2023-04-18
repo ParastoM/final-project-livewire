@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import SingleEvent from "./SingleEvent";
 import ArtistPage from "./ArtistPage";
+import About from "./About";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/events" />
             <Route path="/eventdetails" element={<SingleEvent />} />
             <Route path="/artistdetails" element={<ArtistPage />} />
+            <Route path="/about" element={<About />} />
           </Routes>
           <Footer />
         </Container>

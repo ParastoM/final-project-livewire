@@ -52,7 +52,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  height: 60px;
+  height: 80px;
   background-color: black;
   color: white;
 `;
